@@ -1,8 +1,9 @@
 package com.itstep.newyorktimesnews.mvp.contracts;
 
-import com.itstep.newyorktimesnews.base.mvp.IMvpPresenter;
-import com.itstep.newyorktimesnews.base.mvp.MvpModel;
-import com.itstep.newyorktimesnews.base.mvp.MvpView;
+
+import com.itstep.newyorktimesnews.base.mvp.interfaces.MvpModel;
+import com.itstep.newyorktimesnews.base.mvp.interfaces.MvpPresenter;
+import com.itstep.newyorktimesnews.base.mvp.interfaces.MvpView;
 import com.itstep.newyorktimesnews.entities.News;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface MainContract {
     interface model extends MvpModel{
         Observable<List<News>> getSportViewNews();
     }
-    interface presenter extends IMvpPresenter {
+    interface presenter extends MvpPresenter {
 
     }
 }

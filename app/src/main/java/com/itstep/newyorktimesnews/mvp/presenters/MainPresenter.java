@@ -3,10 +3,9 @@ package com.itstep.newyorktimesnews.mvp.presenters;
 import android.content.Context;
 
 import com.itstep.newyorktimesnews.base.App;
+
 import com.itstep.newyorktimesnews.base.mvp.MvpPresenter;
 import com.itstep.newyorktimesnews.mvp.contracts.MainContract;
-
-import javax.inject.Inject;
 
 public class MainPresenter extends MvpPresenter<MainContract.view> implements MainContract.presenter {
     Context ctx;

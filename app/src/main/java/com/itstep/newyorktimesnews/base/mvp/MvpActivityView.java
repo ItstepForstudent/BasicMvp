@@ -3,13 +3,14 @@ package com.itstep.newyorktimesnews.base.mvp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import com.itstep.newyorktimesnews.base.mvp.interfaces.MvpPresenter;
 
-import com.itstep.newyorktimesnews.base.App;
+import com.itstep.newyorktimesnews.base.mvp.interfaces.MvpView;
 
 import javax.inject.Inject;
 
 
-public abstract class MvpActivityView<T extends IMvpPresenter> extends AppCompatActivity implements MvpView {
+public abstract class MvpActivityView<T extends MvpPresenter> extends AppCompatActivity implements MvpView {
     @Inject
     protected T presenter;
 

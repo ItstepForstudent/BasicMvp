@@ -1,9 +1,9 @@
 package com.itstep.newyorktimesnews.base.mvp;
 
 
-import com.itstep.newyorktimesnews.base.mvp.MvpView;
+import com.itstep.newyorktimesnews.base.mvp.interfaces.MvpView;
 
-public class MvpPresenter<T extends MvpView> implements IMvpPresenter {
+public class MvpPresenter<T extends MvpView> implements com.itstep.newyorktimesnews.base.mvp.interfaces.MvpPresenter {
 
     private T view=null;
     private boolean attached =false;
