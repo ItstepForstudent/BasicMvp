@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 
 public interface MainContract {
     interface view extends MvpView{
-        void showMessage();
+        void showNews(List<News> newsList);
     }
     interface model extends MvpModel{
         Observable<List<News>> getSportViewNews();

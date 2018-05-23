@@ -19,13 +19,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
-kapt{
-    generateStubs=true
+kapt {
+    generateStubs = true
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
 
     //support
     implementation 'com.android.support:appcompat-v7:27.1.0'
@@ -45,10 +48,15 @@ dependencies {
     //dagger2
     implementation 'com.google.dagger:dagger:2.15'
     implementation 'javax.inject:javax.inject:1'
+    implementation 'com.android.support:support-v4:27.1.1'
     kapt 'com.google.dagger:dagger-compiler:2.15'
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //butter knife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
 

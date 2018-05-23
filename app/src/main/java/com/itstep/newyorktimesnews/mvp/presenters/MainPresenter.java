@@ -7,8 +7,11 @@ import com.itstep.newyorktimesnews.base.App;
 import com.itstep.newyorktimesnews.base.mvp.MvpPresenter;
 import com.itstep.newyorktimesnews.mvp.contracts.MainContract;
 
+import javax.inject.Inject;
+
 public class MainPresenter extends MvpPresenter<MainContract.view> implements MainContract.presenter {
     Context ctx;
+    @Inject MainContract.model model;
     public MainPresenter(Context ctx){
         this.ctx=ctx;
         App.get(ctx).injector().inject(this);
@@ -17,6 +20,9 @@ public class MainPresenter extends MvpPresenter<MainContract.view> implements Ma
     @Override
     public void attachView(Object view) {
         super.attachView(view);
-        getView().showMessage();
+        updateNews();
+    }
+    public void updateNews(){
+        model.getSportViewNews().subscribe(n->getView().showNews(n));
     }
 }
