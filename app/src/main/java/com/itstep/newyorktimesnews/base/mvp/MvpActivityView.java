@@ -13,7 +13,6 @@ import javax.inject.Inject;
 public abstract class MvpActivityView<T extends MvpPresenter> extends AppCompatActivity implements MvpView {
     @Inject
     protected T presenter;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
