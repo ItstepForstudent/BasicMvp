@@ -22,19 +22,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainModel implements MainContract.model {
-    @Inject
-    NewYorkApi api;
-
+    Context context;
     public MainModel(Context ctx){
-        App.get(ctx).injector().inject(this);
-    }
-    @Override
-    public Observable<List<News>> getSportViewNews() {
-        return api.getNews("Sports", Constants.Api.MOST_VIEWED_NEWS)
-                .subscribeOn(Schedulers.io())
-                .map(n->n.getNews())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext((ObservableSource<? extends List<News>>) x->new ArrayList<>());
+        context=ctx;
     }
 
 }

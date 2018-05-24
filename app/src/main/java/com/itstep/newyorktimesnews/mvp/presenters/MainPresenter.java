@@ -20,9 +20,7 @@ public class MainPresenter extends MvpPresenter<MainContract.view> implements Ma
     @Override
     public void attachView(Object view) {
         super.attachView(view);
-        updateNews();
+
     }
-    public void updateNews(){
-        model.getSportViewNews().subscribe(n->getView().showNews(n));
-    }
+
 }

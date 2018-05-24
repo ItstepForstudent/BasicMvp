@@ -26,15 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainFragmentView extends MvpFragmentView<MainContract.presenter> implements MainContract.view{
-//    @BindView(R.id.newsRV)
-//    RecyclerView newsRecycler;
 
-//    NewsRvArapter newsRvArapter = new NewsRvArapter();
-//
-//    private void initRecycler(){
-//        newsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-//        newsRecycler.setAdapter(newsRvArapter);
-//    }
 
     @BindView(R.id.sliding_tabs)
     TabLayout tabLayout;
@@ -60,15 +52,11 @@ public class MainFragmentView extends MvpFragmentView<MainContract.presenter> im
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //initRecycler();
         initTabs();
         super.onViewCreated(view, savedInstanceState);
     }
 
 
 
-    @Override
-    public void showNews(List<News> newsList) {
-        //newsRvArapter.setNewsList(newsList);
-    }
+
 }
