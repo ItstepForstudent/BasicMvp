@@ -1,6 +1,7 @@
 package com.itstep.newyorktimesnews.mvp.presenters;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.itstep.newyorktimesnews.base.App;
 import com.itstep.newyorktimesnews.base.mvp.MvpPresenter;
@@ -17,7 +18,6 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     @Inject
     TabContract.model model;
     List<News> newsList=null;
-
     String type;
 
     public TabPresenter(Context ctx,@Nullable String type) {
@@ -29,10 +29,12 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     @Override
     public void attachView(Object view) {
         super.attachView(view);
+        Log.v("__TAG",type+":injected");
         updateNews();
     }
 
     public void updateNews() {
+        Log.v("__TAG","show list");
         if(newsList==null)
             model.getSportNews(type).subscribe(n ->  getView().showNews(newsList =n));
         else

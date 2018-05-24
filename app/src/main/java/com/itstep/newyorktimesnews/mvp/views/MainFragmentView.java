@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,11 @@ public class MainFragmentView extends MvpFragmentView<MainContract.presenter> im
     @BindView(R.id.viewpager)
     ViewPager pages;
 
+    TabsAdapter adapter;
+
 
     private void initTabs(){
-        TabsAdapter adapter = new TabsAdapter(getFragmentManager(),"Sports");
+        adapter = new TabsAdapter(getFragmentManager(),"Sports");
         pages.setAdapter(adapter);
         tabLayout.setupWithViewPager(pages);
     }
@@ -44,15 +47,16 @@ public class MainFragmentView extends MvpFragmentView<MainContract.presenter> im
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_layout,container,false);
-        ButterKnife.bind(this,rootView);
         App.get(getContext()).injector().inject(this);
+        ButterKnife.bind(this,rootView);
+        initTabs();
         return rootView;
     }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        initTabs();
+
         super.onViewCreated(view, savedInstanceState);
     }
 

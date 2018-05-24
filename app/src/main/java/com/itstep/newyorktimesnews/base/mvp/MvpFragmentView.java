@@ -11,7 +11,7 @@ import com.itstep.newyorktimesnews.base.mvp.interfaces.MvpView;
 
 import javax.inject.Inject;
 
-public class MvpFragmentView<T extends MvpPresenter>extends Fragment implements MvpView {
+public abstract class MvpFragmentView<T extends MvpPresenter>extends Fragment implements MvpView {
 
     @Inject
     protected T presenter;
@@ -24,8 +24,10 @@ public class MvpFragmentView<T extends MvpPresenter>extends Fragment implements 
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroyView() {
         presenter.detachView();
+        super.onDestroyView();
     }
+
+
 }

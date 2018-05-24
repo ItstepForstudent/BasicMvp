@@ -4,11 +4,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.itstep.newyorktimesnews.mvp.views.TabViewFragment;
 import com.itstep.newyorktimesnews.utils.Constants;
 
-public class TabsAdapter extends FragmentPagerAdapter {
+public class TabsAdapter extends FragmentStatePagerAdapter {
     final static int countTabs = 3;
     private String category ;
 
