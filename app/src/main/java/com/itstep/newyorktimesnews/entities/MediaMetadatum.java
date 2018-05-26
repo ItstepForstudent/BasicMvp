@@ -2,6 +2,8 @@ package com.itstep.newyorktimesnews.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+
 public class MediaMetadatum {
 
     @SerializedName("url")

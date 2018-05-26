@@ -4,7 +4,9 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class News {
+import io.realm.RealmObject;
+
+public class News{
 
     @SerializedName("url")
     @Expose

@@ -6,6 +6,7 @@ import com.itstep.newyorktimesnews.mvp.models.MainModel;
 import com.itstep.newyorktimesnews.mvp.models.TabModel;
 import com.itstep.newyorktimesnews.mvp.presenters.MainPresenter;
 import com.itstep.newyorktimesnews.mvp.presenters.TabPresenter;
+import com.itstep.newyorktimesnews.mvp.views.DetailsFragmentView;
 import com.itstep.newyorktimesnews.mvp.views.MainActivityView;
 import com.itstep.newyorktimesnews.mvp.views.MainFragmentView;
 import com.itstep.newyorktimesnews.mvp.views.TabViewFragment;
@@ -25,5 +26,8 @@ public interface AppComponent {
     void inject(TabModel target);
     void inject(TabPresenter target);
     void inject(TabViewFragment target);
+
+
+    void inject(DetailsFragmentView target);
 
 }

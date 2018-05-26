@@ -8,9 +8,11 @@ import com.itstep.newyorktimesnews.base.mvp.MvpPresenter;
 import com.itstep.newyorktimesnews.mvp.contracts.MainContract;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class MainPresenter extends MvpPresenter<MainContract.view> implements MainContract.presenter {
     Context ctx;
+
     @Inject MainContract.model model;
     public MainPresenter(Context ctx){
         this.ctx=ctx;

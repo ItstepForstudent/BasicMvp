@@ -7,6 +7,7 @@ import com.itstep.newyorktimesnews.base.App;
 import com.itstep.newyorktimesnews.base.mvp.MvpPresenter;
 import com.itstep.newyorktimesnews.entities.News;
 import com.itstep.newyorktimesnews.mvp.contracts.TabContract;
+import com.itstep.newyorktimesnews.realmmodels.RealmNews;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     Context ctx;
     @Inject
     TabContract.model model;
-    List<News> newsList=null;
+    List<RealmNews> newsList=null;
     String type;
 
     public TabPresenter(Context ctx,@Nullable String type) {
@@ -29,15 +30,17 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     @Override
     public void attachView(Object view) {
         super.attachView(view);
-        Log.v("__TAG",type+":injected");
         updateNews();
     }
 
     public void updateNews() {
-        Log.v("__TAG","show list");
-        if(newsList==null)
-            model.getSportNews(type).subscribe(n ->  getView().showNews(newsList =n));
-        else
+        if(newsList==null) {
+            model.getSportNews(type).subscribe(n -> {
+                getView().showNews(newsList = n);
+                model.updateNews(type).subscribe(x -> getView().showNews(newsList = x),e->{});
+            });
+
+        }else
             getView().showNews(newsList);
     }
 }

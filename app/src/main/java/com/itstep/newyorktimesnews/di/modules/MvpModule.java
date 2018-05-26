@@ -5,10 +5,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.itstep.newyorktimesnews.base.App;
+import com.itstep.newyorktimesnews.mvp.contracts.DetailsContract;
 import com.itstep.newyorktimesnews.mvp.contracts.MainContract;
 import com.itstep.newyorktimesnews.mvp.contracts.TabContract;
 import com.itstep.newyorktimesnews.mvp.models.MainModel;
 import com.itstep.newyorktimesnews.mvp.models.TabModel;
+import com.itstep.newyorktimesnews.mvp.presenters.DetailsPresenter;
 import com.itstep.newyorktimesnews.mvp.presenters.MainPresenter;
 import com.itstep.newyorktimesnews.mvp.presenters.TabPresenter;
 import com.itstep.newyorktimesnews.utils.Constants;
@@ -37,23 +39,20 @@ public class MvpModule {
     }
 
 
+    ///-------------------TABS----------------------
     @Provides @Singleton @Named(Constants.Api.MOST_MAILED_NEWS)
     public TabContract.presenter provideMailedTabPresenter(Context context){
-        Log.v("__TAG","Instance mailed");
         return new TabPresenter(context,Constants.Api.MOST_MAILED_NEWS);
     }
     @Provides @Singleton @Named(Constants.Api.MOST_SHARED_NEWS)
     public TabContract.presenter provideSharedTabPresenter(Context context){
-        Log.v("__TAG","Instance shared");
-
         return new TabPresenter(context,Constants.Api.MOST_SHARED_NEWS);
     }
     @Provides @Singleton @Named(Constants.Api.MOST_VIEWED_NEWS)
     public TabContract.presenter provideViewedTabPresenter(Context context){
-        Log.v("__TAG","Instance viewed");
-
         return new TabPresenter(context,Constants.Api.MOST_VIEWED_NEWS);
     }
+
     @Provides @Singleton
     public TabContract.presenter provideTabPresenter(@Named(Constants.Api.MOST_MAILED_NEWS) TabContract.presenter presenter){
         return presenter;
@@ -62,6 +61,13 @@ public class MvpModule {
     @Provides @Singleton
     public TabContract.model provideTabContractModel(Context context){
         return new TabModel(context);
+    }
+
+
+    ///-----------------------Details------------------
+    @Provides @Singleton
+    public DetailsContract.presenter provideDetailsContractPresenter(Context context){
+        return new DetailsPresenter(context);
     }
 
 

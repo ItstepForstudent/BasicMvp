@@ -4,19 +4,19 @@ import android.content.Context;
 
 import com.itstep.newyorktimesnews.api.NewYorkApi;
 import com.itstep.newyorktimesnews.base.App;
-import com.itstep.newyorktimesnews.entities.News;
 import com.itstep.newyorktimesnews.mvp.contracts.TabContract;
-import com.itstep.newyorktimesnews.utils.Constants;
+import com.itstep.newyorktimesnews.realmmodels.RealmNews;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
 public class TabModel implements TabContract.model{
     @Inject
@@ -25,12 +25,61 @@ public class TabModel implements TabContract.model{
     public TabModel(Context ctx){
         App.get(ctx).injector().inject(this);
     }
+
+
+
+
     @Override
-    public Observable<List<News>> getSportNews(String type) {
+    public Observable<List<RealmNews>> getSportNews(String type) {
+        return Observable.fromCallable(()->{
+            List<RealmNews> list = new LinkedList<>();
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            try{
+             List<RealmNews> _storage = realm.where(RealmNews.class)
+                    .equalTo("type",type)
+                    .equalTo("category","Sports")
+                    .findAll();
+             list = realm.copyFromRealm(_storage);
+
+            }catch (Exception e){}
+            realm.commitTransaction();
+            realm.close();
+            return list;
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<List<RealmNews>> updateNews(String type) {
         return api.getNews("Sports", type)
-                .subscribeOn(Schedulers.io())
                 .map(n->n.getNews())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext((ObservableSource<? extends List<News>>) x->new ArrayList<>());
+                .map(news->{
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+
+                    try {
+                        realm.where(RealmNews.class)
+                                .equalTo("type", type)
+                                .equalTo("category", "Sports").findAll().deleteAllFromRealm();
+                    }catch (Exception ignored){}
+
+                    List<RealmNews> _news= new LinkedList<>();
+                    Observable.fromIterable(news).map(news1->new RealmNews(
+                            news1.getTitle(),
+                            news1.getMedia().get(0).getMediaMetadata().get(1).getUrl(),
+                            news1.getUrl(),
+                            "Sports",
+                            type
+                    )).subscribe(_news::add);
+
+                    realm.copyToRealmOrUpdate(_news);
+
+                    realm.commitTransaction();
+                    realm.close();
+                    return _news;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
     }
 }

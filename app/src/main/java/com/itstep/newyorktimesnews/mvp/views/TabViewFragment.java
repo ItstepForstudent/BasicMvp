@@ -19,6 +19,7 @@ import com.itstep.newyorktimesnews.base.App;
 import com.itstep.newyorktimesnews.base.mvp.MvpFragmentView;
 import com.itstep.newyorktimesnews.entities.News;
 import com.itstep.newyorktimesnews.mvp.contracts.TabContract;
+import com.itstep.newyorktimesnews.realmmodels.RealmNews;
 import com.itstep.newyorktimesnews.utils.Constants;
 
 import java.util.List;
@@ -134,7 +135,7 @@ public class TabViewFragment extends Fragment implements TabContract.view{
     }
 
     @Override
-    public void showNews(List<News> newsList) {
+    public void showNews(List<RealmNews> newsList) {
         newsRvArapter.setNewsList(newsList);
     }
 }

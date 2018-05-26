@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.itstep.newyorktimesnews.R;
 import com.itstep.newyorktimesnews.entities.News;
+import com.itstep.newyorktimesnews.realmmodels.RealmNews;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,12 +21,12 @@ import butterknife.ButterKnife;
 
 public class NewsRvArapter extends RecyclerView.Adapter<NewsRvArapter.ViewHolder> {
 
-    public void setNewsList(List<News> newsList) {
+    public void setNewsList(List<RealmNews> newsList) {
         this.newsList = newsList;
         this.notifyDataSetChanged();
     }
 
-    private List<News> newsList = new ArrayList<>();
+    private List<RealmNews> newsList = new ArrayList<>();
 
 
     @NonNull
@@ -52,9 +53,9 @@ public class NewsRvArapter extends RecyclerView.Adapter<NewsRvArapter.ViewHolder
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
-        public void bind(News news){
-            Picasso.get().load(news.getMedia().get(0).getMediaMetadata().get(1).getUrl()).into(newsImageView);
-            newsTextView.setText(news.getTitle());
+        public void bind(RealmNews news){
+            Picasso.get().load(news.getImageUrl()).into(newsImageView);
+            newsTextView.setText(news.getName());
         }
     }
 }
