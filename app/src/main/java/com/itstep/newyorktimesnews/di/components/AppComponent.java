@@ -1,6 +1,7 @@
 package com.itstep.newyorktimesnews.di.components;
 
 import com.itstep.newyorktimesnews.di.modules.ApiModule;
+import com.itstep.newyorktimesnews.di.modules.AppModule;
 import com.itstep.newyorktimesnews.di.modules.MvpModule;
 import com.itstep.newyorktimesnews.mvp.models.MainModel;
 import com.itstep.newyorktimesnews.mvp.models.TabModel;
@@ -16,7 +17,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {MvpModule.class, ApiModule.class})
+@Component(modules = {MvpModule.class, ApiModule.class,AppModule.class})
 public interface AppComponent {
     void inject(MainActivityView activityView);
     void inject(MainFragmentView fragmentView);

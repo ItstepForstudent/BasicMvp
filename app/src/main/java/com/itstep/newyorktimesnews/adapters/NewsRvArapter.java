@@ -18,8 +18,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.subjects.PublishSubject;
 
 public class NewsRvArapter extends RecyclerView.Adapter<NewsRvArapter.ViewHolder> {
+    PublishSubject<String> _subject = PublishSubject.create();
+    public PublishSubject<String> onItemClick(){
+        return _subject;
+    }
 
     public void setNewsList(List<RealmNews> newsList) {
         this.newsList = newsList;
@@ -56,6 +61,7 @@ public class NewsRvArapter extends RecyclerView.Adapter<NewsRvArapter.ViewHolder
         public void bind(RealmNews news){
             Picasso.get().load(news.getImageUrl()).into(newsImageView);
             newsTextView.setText(news.getName());
+            itemView.setOnClickListener(v->_subject.onNext(news.getUrl()));
         }
     }
 }

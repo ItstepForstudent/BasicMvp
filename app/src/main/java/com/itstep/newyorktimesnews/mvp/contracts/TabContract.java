@@ -13,6 +13,7 @@ import io.reactivex.Observable;
 public interface TabContract {
     interface view extends MvpView {
         void showNews(List<RealmNews> newsList);
+        Observable<String> onCardClick();
     }
     interface model extends MvpModel {
         Observable<List<RealmNews>> getSportNews(String type);

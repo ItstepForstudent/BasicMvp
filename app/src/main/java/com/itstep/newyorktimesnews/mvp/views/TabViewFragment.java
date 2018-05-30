@@ -29,6 +29,7 @@ import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +56,11 @@ public class TabViewFragment extends Fragment implements TabContract.view{
     public void onStop() {
         super.onStop();
         presenter.detachView();
+    }
+
+    @Override
+    public Observable<String> onCardClick(){
+        return newsRvArapter.onItemClick();
     }
 
 

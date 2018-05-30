@@ -4,10 +4,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.itstep.newyorktimesnews.base.App;
+import com.itstep.newyorktimesnews.utils.DataBus;
 import com.itstep.newyorktimesnews.base.mvp.MvpPresenter;
 import com.itstep.newyorktimesnews.entities.News;
 import com.itstep.newyorktimesnews.mvp.contracts.TabContract;
 import com.itstep.newyorktimesnews.realmmodels.RealmNews;
+import com.itstep.newyorktimesnews.events.OpenDetailsEvent;
 
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     Context ctx;
     @Inject
     TabContract.model model;
+
+    @Inject DataBus dataBus;
+
     List<RealmNews> newsList=null;
     String type;
 
@@ -31,6 +36,7 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     public void attachView(Object view) {
         super.attachView(view);
         updateNews();
+        getView().onCardClick().subscribe(url->dataBus.sendEvent(new OpenDetailsEvent("open_details",url)));
     }
 
     public void updateNews() {
