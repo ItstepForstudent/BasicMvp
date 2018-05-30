@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.itstep.newyorktimesnews.R;
 import com.itstep.newyorktimesnews.adapters.TabsAdapter;
@@ -24,13 +25,14 @@ import butterknife.ButterKnife;
 
 public class DetailsFragmentView extends MvpFragmentView<DetailsContract.presenter> implements DetailsContract.view {
 
-
+    @BindView(R.id.webview)
+    WebView webView;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_layout,container,false);
+        View rootView = inflater.inflate(R.layout.details_view,container,false);
         App.get(getContext()).injector().inject(this);
         ButterKnife.bind(this,rootView);
         return rootView;
