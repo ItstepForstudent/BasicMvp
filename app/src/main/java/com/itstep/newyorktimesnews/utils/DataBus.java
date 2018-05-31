@@ -2,6 +2,7 @@ package com.itstep.newyorktimesnews.utils;
 
 import com.itstep.newyorktimesnews.events.Event;
 
+import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 public class DataBus {
@@ -13,5 +14,8 @@ public class DataBus {
     }
     public PublishSubject<Event> getBus(){
         return subject;
+    }
+    public Observable<Event> getBus(Constants.EventNames name){
+        return subject.filter(e->e.getName().equals(name));
     }
 }

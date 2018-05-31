@@ -30,7 +30,7 @@ public class TabModel implements TabContract.model{
 
 
     @Override
-    public Observable<List<RealmNews>> getSportNews(String type) {
+    public Observable<List<RealmNews>> getSportNews(String type,String category) {
         return Observable.fromCallable(()->{
             List<RealmNews> list = new LinkedList<>();
             Realm realm = Realm.getDefaultInstance();
@@ -38,7 +38,7 @@ public class TabModel implements TabContract.model{
             try{
              List<RealmNews> _storage = realm.where(RealmNews.class)
                     .equalTo("type",type)
-                    .equalTo("category","Sports")
+                    .equalTo("category",category)
                     .findAll();
              list = realm.copyFromRealm(_storage);
 
@@ -50,8 +50,8 @@ public class TabModel implements TabContract.model{
     }
 
     @Override
-    public Observable<List<RealmNews>> updateNews(String type) {
-        return api.getNews("Sports", type)
+    public Observable<List<RealmNews>> updateNews(String type,String category) {
+        return api.getNews(category, type)
                 .map(n->n.getNews())
                 .map(news->{
                     Realm realm = Realm.getDefaultInstance();
@@ -60,7 +60,7 @@ public class TabModel implements TabContract.model{
                     try {
                         realm.where(RealmNews.class)
                                 .equalTo("type", type)
-                                .equalTo("category", "Sports").findAll().deleteAllFromRealm();
+                                .equalTo("category", category).findAll().deleteAllFromRealm();
                     }catch (Exception ignored){}
 
                     List<RealmNews> _news= new LinkedList<>();
@@ -68,7 +68,7 @@ public class TabModel implements TabContract.model{
                             news1.getTitle(),
                             news1.getMedia().get(0).getMediaMetadata().get(1).getUrl(),
                             news1.getUrl(),
-                            "Sports",
+                            category,
                             type
                     )).subscribe(_news::add);
 

@@ -16,8 +16,8 @@ public interface TabContract {
         Observable<String> onCardClick();
     }
     interface model extends MvpModel {
-        Observable<List<RealmNews>> getSportNews(String type);
-        Observable<List<RealmNews>> updateNews(String type);
+        Observable<List<RealmNews>> getSportNews(String type, String category);
+        Observable<List<RealmNews>> updateNews(String type, String category);
     }
 
 
