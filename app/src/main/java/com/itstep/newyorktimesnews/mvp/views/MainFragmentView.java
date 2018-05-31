@@ -36,9 +36,12 @@ public class MainFragmentView extends MvpFragmentView<MainContract.presenter> im
 
     TabsAdapter adapter;
 
+    public MainFragmentView() {
+        setRetainInstance(true);
+    }
 
     private void initTabs(){
-        adapter = new TabsAdapter(getFragmentManager(),"Sports");
+        adapter = new TabsAdapter(getChildFragmentManager(),"Sports");
         pages.setAdapter(adapter);
         tabLayout.setupWithViewPager(pages);
     }

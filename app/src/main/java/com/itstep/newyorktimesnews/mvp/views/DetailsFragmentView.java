@@ -18,6 +18,7 @@ import com.itstep.newyorktimesnews.adapters.TabsAdapter;
 import com.itstep.newyorktimesnews.base.App;
 import com.itstep.newyorktimesnews.base.mvp.MvpFragmentView;
 import com.itstep.newyorktimesnews.mvp.contracts.DetailsContract;
+import com.itstep.newyorktimesnews.utils.NewsHtmlPreProcessor;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +28,9 @@ import butterknife.ButterKnife;
  */
 
 public class DetailsFragmentView extends MvpFragmentView<DetailsContract.presenter> implements DetailsContract.view {
+    public DetailsFragmentView() {
+        setRetainInstance(true);
+    }
 
     private final static String ARG_URL="_url_arg";
     @BindView(R.id.webview)
@@ -55,8 +59,13 @@ public class DetailsFragmentView extends MvpFragmentView<DetailsContract.present
 
 
         });
+
         if(url!=null){
-            webView.loadUrl(url);
+            NewsHtmlPreProcessor preProcessor = new NewsHtmlPreProcessor(url);
+            preProcessor.startProcessing().subscribe(html->{
+                webView.loadData(html,"text/html","utf-8");
+            });
+
         }
     }
 

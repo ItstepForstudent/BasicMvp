@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.itstep.newyorktimesnews.base.App;
+import com.itstep.newyorktimesnews.utils.Constants;
 import com.itstep.newyorktimesnews.utils.DataBus;
 import com.itstep.newyorktimesnews.base.mvp.MvpPresenter;
 import com.itstep.newyorktimesnews.entities.News;
@@ -36,7 +37,7 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     public void attachView(Object view) {
         super.attachView(view);
         updateNews();
-        getView().onCardClick().subscribe(url->dataBus.sendEvent(new OpenDetailsEvent("open_details",url)));
+        getView().onCardClick().subscribe(url->dataBus.sendEvent(new OpenDetailsEvent(Constants.EventNames.OPEN_DETAILS,url)));
     }
 
     public void updateNews() {
