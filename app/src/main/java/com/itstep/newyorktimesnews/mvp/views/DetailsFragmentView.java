@@ -28,14 +28,15 @@ import butterknife.ButterKnife;
  */
 
 public class DetailsFragmentView extends MvpFragmentView<DetailsContract.presenter> implements DetailsContract.view {
-    public DetailsFragmentView() {
-        setRetainInstance(true);
-    }
+
 
     private final static String ARG_URL="_url_arg";
     @BindView(R.id.webview)
     WebView webView;
 
+    public DetailsFragmentView() {
+        this.setRetainInstance(true);
+    }
 
     @Nullable
     @Override

@@ -13,8 +13,7 @@ import javax.inject.Inject;
 
 public abstract class MvpFragmentView<T extends MvpPresenter>extends Fragment implements MvpView {
 
-    @Inject
-    protected T presenter;
+    @Inject protected T presenter;
 
 
     @Override
@@ -26,6 +25,7 @@ public abstract class MvpFragmentView<T extends MvpPresenter>extends Fragment im
     @Override
     public void onDestroyView() {
         presenter.detachView();
+        presenter = null;
         super.onDestroyView();
     }
 

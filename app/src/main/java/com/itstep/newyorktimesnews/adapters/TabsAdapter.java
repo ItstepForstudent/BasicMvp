@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 import com.itstep.newyorktimesnews.mvp.views.TabViewFragment;
 import com.itstep.newyorktimesnews.utils.Constants;
@@ -38,6 +39,9 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
         }
         return null;
     }
+
+
+
 
     @Override
     public int getCount() {

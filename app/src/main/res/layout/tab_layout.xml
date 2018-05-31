@@ -6,5 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:listitem="@layout/card_news_recycler"
-    android:background="#ccc"
+    android:background="@drawable/gradient_bg"
     />

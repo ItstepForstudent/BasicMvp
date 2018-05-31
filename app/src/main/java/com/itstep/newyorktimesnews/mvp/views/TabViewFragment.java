@@ -31,14 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TabViewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TabViewFragment extends Fragment implements TabContract.view{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String CATEGORY_ARG = "param1";
     private static final String TYPE_ARG = "param2";
 
@@ -52,9 +46,11 @@ public class TabViewFragment extends Fragment implements TabContract.view{
 
     }
 
+
+
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroyView() {
+        super.onDestroyView();
         presenter.detachView();
     }
 
@@ -62,10 +58,6 @@ public class TabViewFragment extends Fragment implements TabContract.view{
     public Observable<String> onCardClick(){
         return newsRvArapter.onItemClick();
     }
-
-
-
-
 
     @BindView(R.id.newsRV)
     RecyclerView newsRecycler;
@@ -81,11 +73,6 @@ public class TabViewFragment extends Fragment implements TabContract.view{
 
     private String categoryNews;
     private String typeNews;
-
-
-    public TabViewFragment() {
-        // Required empty public constructor
-    }
 
     public static TabViewFragment newInstance(String category, String type) {
         TabViewFragment fragment = new TabViewFragment();
@@ -103,6 +90,7 @@ public class TabViewFragment extends Fragment implements TabContract.view{
             categoryNews = getArguments().getString(CATEGORY_ARG);
             typeNews = getArguments().getString(TYPE_ARG);
         }
+        this.setRetainInstance(true);
         App.get(getContext()).injector().inject(this);
         injectPresenter();
     }
@@ -113,22 +101,18 @@ public class TabViewFragment extends Fragment implements TabContract.view{
     public void injectPresenter(){
         switch (this.typeNews){
             case Constants.Api.MOST_VIEWED_NEWS:
-                Log.v("__TAG","ingect presenter 1");
                 this.presenter = mostViewedPresenter;
                 break;
             case Constants.Api.MOST_SHARED_NEWS:
-                Log.v("__TAG","ingect presenter 2");
                 this.presenter=mostSharedPresenter;
                 break;
             case Constants.Api.MOST_MAILED_NEWS:
-                Log.v("__TAG","ingect presenter 3");
                 this.presenter=mostMailedPresenter;
                 break;
         }
+        mostViewedPresenter=mostSharedPresenter=mostMailedPresenter=null;
 
     }
-
-
 
 
     @Override

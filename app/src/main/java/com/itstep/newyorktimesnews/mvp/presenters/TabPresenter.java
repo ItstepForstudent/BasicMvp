@@ -33,7 +33,7 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     List<RealmNews> newsList=null;
     String type;
     Disposable selectCatDisp;
-    String category = "Sports";
+    String category ;
 
 
     public TabPresenter(Context ctx,@Nullable String type) {
@@ -50,10 +50,16 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     @Override
     public void attachView(Object view) {
         super.attachView(view);
-        category = categoryVM.getCategory();
+
+        if(category==null || !category.equals(categoryVM.getCategory())){
+            category = categoryVM.getCategory();
+            newsList=null;
+        }
         updateNews();
+
         getView().onCardClick().subscribe(url->dataBus.sendEvent(new OpenDetailsEvent(Constants.EventNames.OPEN_DETAILS,url)));
-        selectCatDisp = dataBus.getBus(Constants.EventNames.SELECT_CATEGORY)
+        selectCatDisp = dataBus
+                .getBus(Constants.EventNames.SELECT_CATEGORY)
                 .map(e->(SelectCategoryEvent)e)
                 .subscribe(e->{
                     newsList =null;
@@ -63,13 +69,14 @@ public class TabPresenter extends MvpPresenter<TabContract.view> implements TabC
     }
 
     public void updateNews() {
-        if(newsList==null) {
-            model.getSportNews(type,category).subscribe(n -> {
-                getView().showNews(newsList = n);
-                model.updateNews(type,category).subscribe(x -> getView().showNews(newsList = x),e->{});
-            });
-        }else
-            getView().showNews(newsList);
+        if(newsList!=null) showNews(newsList);
+        else model.getSportNews(type,category)
+                    .doOnNext(n -> model.updateNews(type,category).subscribe(this::showNews,e->{}))
+                    .subscribe(this::showNews);
+    }
+
+    private void showNews(List<RealmNews> n){
+        getView().showNews(newsList = n);
     }
 
     @Override
